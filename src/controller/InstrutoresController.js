@@ -1,5 +1,4 @@
-const { instrutores } = require("../dataBase");
-let { newId } = require("../dataBase")
+let { instrutores, newId } = require("../dataBase");
 
 const getAllInstrutores = (req, res) => {
     return res.status(200).json(instrutores);
@@ -64,20 +63,56 @@ const updateInstrutor = (req, res) => {
     });
 
     if (!instrutor) {
-        return res.status(404).json({ msg: "Instructor not found" })
-    };
+        return res.status(404).json({ msg: "Instructor not found"})
+    };   
 
     instrutor.name = name;
     instrutor.email = email;
     instrutor.status = status;
 
-    return res.status(203).send()
+    return res.status(204).send()
+};
 
-}
+const updateStatus = (req,res) =>{
+    const {id} = req.params;
+    const{status}= req.body;
+    
+    const instrutor = instrutores.find((instrutor)=>{
+      return instrutor.id === Number(id);
+    });
+
+    if (!instrutor){
+      return res.status(404).json({msg: "Instructor not found"})
+    }
+
+    instrutor.status = status;
+
+    return res.status(204).send();
+  };
+
+  const deleteInstrutor = (req, res) => {
+    const {id} = req. params;
+
+    const instrutor = instrutores.find((instrutor) => {
+        return instrutor.id === Number(id);
+    });
+
+    if(!instrutor){
+        return res.status(404).json({msg: "Instructor not faound"})
+    };
+
+    instrutores = instrutores.filter((instrutor) => {
+        return instrutor.id !== Number(id);
+    });
+
+    return res.status(204).send()
+  };
 
 module.exports = {
     getAllInstrutores,
     getInstrutoresById,
     addNewInstrutor,
-    updateInstrutor
+    updateInstrutor,
+    updateStatus,
+    deleteInstrutor
 }
