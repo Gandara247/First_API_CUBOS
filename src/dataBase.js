@@ -1,5 +1,6 @@
 const dataBase = {
     newId: 4,
+    newIdAula: 2,
     instrutores: [
         {
             id: 1,
@@ -22,7 +23,16 @@ const dataBase = {
             status: true
 
         }
+    ],
+    aulas: [
+        {
+            id: 1,
+            instrutores_id: 1,
+            titulo: "Primeiro Servidor",
+            descricao: "construinkdo o primeiro servidor"
+        }
     ]
+
 };
 
 module.exports = dataBase;
